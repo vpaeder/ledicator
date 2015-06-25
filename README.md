@@ -1,5 +1,6 @@
 # LEDicator
 jQuery plugin to display a &lt;select> control as a single LED indicator with different colour states.
+
 The indicator style is inspired from [this tutorial](http://tympanus.net/Tutorials/CSS3ButtonSwitches/).
 
 # Installation
