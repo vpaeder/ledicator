@@ -15,6 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*
+    This style is inspired from the work of Hugo Giraudel described at this address: http://tympanus.net/codrops/2012/09/13/button-switches-with-checkboxes-and-css3-fanciness
+*/
+
 .ledicator *:after,
 .ledicator *:before {
     box-sizing: border-box;
