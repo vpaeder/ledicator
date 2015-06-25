@@ -60,6 +60,6 @@ var state = $("#id_of_your_select_element").getState();
 
 For now, only one custom property is accessible:
 
-** $("#...").ledicator.enabled ** : if true, the LEDicator instance changes upon clicking (increment by 1).
+**$("#...").ledicator.enabled** : if true, the LEDicator instance changes upon clicking (increment by 1).
 # License
 LEDicator is licensed under the [GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.en.html).
