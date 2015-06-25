@@ -22,6 +22,7 @@ LEDicator applies to ````<select>```` HTML elements. Create one with a defined n
 ````
 $("#id_of_your_select_element").ledicator( {'states': {'0':'gray', '1':'red', ...} } );
 ````
+You will find a working example [here](https://github.com/vpaeder/ledicator/blob/master/ledicator-demo.html).
 
 The *states* option is mandatory and specifies the colours associated with each state. You need to define each sate following the pattern 'option name':'colour'.
 Some predifined colours are included. These are:
