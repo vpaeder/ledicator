@@ -44,6 +44,7 @@ var namedColors = {
     // this.initialOptionIndex = this.$options.filter('[value="'+$(element).val()+'"]').index();
 	this.initialOptionIndex = this.getState();
 	this.ledStyle = null;
+	//this.enabled = true;
 	this.convertColors();
     this.init();
   }
@@ -73,7 +74,9 @@ var namedColors = {
 	  });
 	  
       this.$button.on('mousedown', function(e){
-		  that.setState(that.currentState+1);
+		  if ($(that).ledicator.enabled) {
+			  that.setState(that.currentState+1);
+		  }
       });
 
     },
@@ -189,6 +192,9 @@ var namedColors = {
               }
           }
       });
+  }
+  if ($.fn.ledicator.enabled == undefined) {
+  	$.fn.ledicator.enabled = true;
   }
   $.fn.setState = function(state) {
 	  return $(this).data().LEDicator.setState(state);
