@@ -17,7 +17,7 @@ You also need to include the LEDicator style sheet
 
 # Usage
 
-LEDicator applies to *<select>* HTML elements. Create one with a defined number of *<option>* tags. Give your *<select>* element an id. Then, include a JavaScript block with the following line
+LEDicator applies to ````<select>```` HTML elements. Create one with a defined number of ````<option>```` tags. Give your ````<select>```` element an id. Then, include a JavaScript block with the following line
 
 ````
 $("#id_of_your_select_element").ledicator( {'states': {'0':'gray', '1':'red', ...} } );
