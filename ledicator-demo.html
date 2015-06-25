@@ -1,0 +1,23 @@
+<html>
+<link rel="stylesheet" href="ledicator.css">
+<script type="text/javascript" src="../../../static/jquery.js"></script>
+<script type="text/javascript" src="ledicator.js"></script>
+<body>
+
+<select id="ledicator">
+	<option selected="selected">0</option>
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+	<option>4</option>
+	<option>5</option>
+	<option>6</option>
+	<option>7</option>
+</select>
+
+<script type="text/javascript">
+var lb = $("#ledicator").ledicator({states:{"0":"gray", "1":"red", "2":"orange", "3":"yellow",
+											"4":"green", "5":"cyan", "6":"blue", "7":"pink"}});
+</script>
+</body>
+</html>
