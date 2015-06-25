@@ -55,3 +55,6 @@ These methods are accessible in this way:
 $("#id_of_your_select_element").setState(3);
 var state = $("#id_of_your_select_element").getState();
 ```
+
+# License
+LEDicator is licensed under the [GPL v3.0](http://www.gnu.org/licenses/gpl-3.0.en.html).
