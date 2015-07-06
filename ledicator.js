@@ -192,9 +192,7 @@
 	},
 	
 	changeStyle: function(colors) {
-		console.log(this.ledStyle.style.background);
 		this.ledStyle.style.background = "radial-gradient(40% 35%, "+colors[0]+", "+colors[1]+" 60%)";
-		console.log(this.ledStyle.style.background);
 	    this.ledStyle.style.boxShadow = "inset 0 3px 5px 1px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.4), 0 0 10px 2px " + colors[2];
 	}
   }
