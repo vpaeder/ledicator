@@ -15,18 +15,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* Pre-defined colors */
-var namedColors = {
-	"gray": ["#9a9a9a","#858585","#00000033"],
-	"red": ["#ef5a5a","#d02525","#d200007f"],
-	"yellow": ["#efef5a","#d0d025","#d2d2007f"],
-	"green": ["#5aef5a","#25d025","#00d2007f"],
-	"blue":["#5a5aef","#2525d0","#0000d27f"],
-	"orange":["#efaf5a","#d08025","#d264007f"],
-	"pink":["#ef5aef","#d025d0","#d200d27f"],
-	"cyan":["#5aefef","#25d0d0","#00d2d27f"]	
-}
-
 !function ($) {
 
   "use strict";
@@ -36,8 +24,21 @@ var namedColors = {
 
   var LEDicator = function (element, options) {
     this.options = options;
+	/* Pre-defined colors */
+	this.namedColors = {
+		"gray": ["#9a9a9a","#858585","#00000033"],
+		"red": ["#ef5a5a","#d02525","#d200007f"],
+		"yellow": ["#efef5a","#d0d025","#d2d2007f"],
+		"green": ["#5aef5a","#25d025","#00d2007f"],
+		"blue":["#5a5aef","#2525d0","#0000d27f"],
+		"orange":["#efaf5a","#d08025","#d264007f"],
+		"pink":["#ef5aef","#d025d0","#d200d27f"],
+		"cyan":["#5aefef","#25d0d0","#00d2d27f"]	
+	}
+	
     this.$element = $(element);
-    this.$container = $("<div class='ledicator'></div>");
+	this.className = "container_"+this.$element[0].id;
+    this.$container = $("<div class='"+this.className+"'></div>");
     this.$button = $("<label></label>");
     this.$options = $(element).children('option');
     this.numberOfOptions = this.$options.length;
@@ -64,7 +65,8 @@ var namedColors = {
       this.$element.after(this.$container);
 	  
 	  this.currentState = this.initialOptionIndex;
-	  this.ledStyle = this.findStyle(".ledicator label::before");
+	  this.copyStyles(".ledicator", "." + this.className); // styles must be copied to avoid conflict
+	  this.ledStyle = this.findStyle("." + this.className + " label::before");
 	  
 	  this.setState(this.currentState);
 	  
@@ -148,7 +150,7 @@ var namedColors = {
 						this.options.states[no].push(col);
 					}
 				} else {
-					this.options.states[no] = namedColors[this.options.states[no]];
+					this.options.states[no] = this.namedColors[this.options.states[no]];
 					for (var nc=0; nc<3; nc++) {
 						this.options.states[no][nc] = this.colorToRgba(this.options.states[no][nc]);
 					}
@@ -164,15 +166,36 @@ var namedColors = {
 		for (var m=0; m<document.styleSheets.length; m++) {
 			for (var n=0; n<document.styleSheets[m].cssRules.length; n++) {
 				if (document.styleSheets[m].cssRules[n].selectorText == ruleName) {
-					return document.styleSheets[m].cssRules[n].style;
+					return document.styleSheets[m].cssRules[n];
 				}
 			}
 		}
 	},
 	
+	copyStyles: function(className, newClassName) {
+		// only one copy must be done => needs to stop after having copied from the 1st style sheet found
+		var copied = false;
+		for (var m=0; m<document.styleSheets.length; m++) {
+			var nmax = document.styleSheets[m].cssRules.length; // needs to store it before, as it is going to grow
+			for (var n=0; n<nmax; n++) {
+				if (document.styleSheets[m].cssRules[n].selectorText.indexOf(className)>-1) {
+					var copied = true;
+					var newStyleText = document.styleSheets[m].cssRules[n].cssText;
+					while (newStyleText.indexOf(className)>-1) {
+						newStyleText = newStyleText.replace(className, newClassName);
+					}
+					document.styleSheets[m].insertRule(newStyleText,document.styleSheets[m].cssRules.length);
+				}
+			}
+			if (copied) { break; }
+		}
+	},
+	
 	changeStyle: function(colors) {
-		this.ledStyle.background = "radial-gradient(40% 35%, "+colors[0]+", "+colors[1]+" 60%)";
-	    this.ledStyle.boxShadow = "inset 0 3px 5px 1px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.4), 0 0 10px 2px " + colors[2];
+		console.log(this.ledStyle.style.background);
+		this.ledStyle.style.background = "radial-gradient(40% 35%, "+colors[0]+", "+colors[1]+" 60%)";
+		console.log(this.ledStyle.style.background);
+	    this.ledStyle.style.boxShadow = "inset 0 3px 5px 1px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.4), 0 0 10px 2px " + colors[2];
 	}
   }
 
