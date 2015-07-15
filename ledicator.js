@@ -165,8 +165,11 @@
 		   Procedure: search for style to be modified -> store it in a property -> change relevant style rules when needed */
 		for (var m=0; m<document.styleSheets.length; m++) {
 			for (var n=0; n<document.styleSheets[m].cssRules.length; n++) {
-				if (document.styleSheets[m].cssRules[n].selectorText == ruleName) {
-					return document.styleSheets[m].cssRules[n];
+				if (typeof document.styleSheets[m].cssRules[n].selectorText != "undefined") {
+					// skips rules without a selector
+					if (document.styleSheets[m].cssRules[n].selectorText == ruleName) {
+						return document.styleSheets[m].cssRules[n];
+					}
 				}
 			}
 		}
@@ -178,13 +181,16 @@
 		for (var m=0; m<document.styleSheets.length; m++) {
 			var nmax = document.styleSheets[m].cssRules.length; // needs to store it before, as it is going to grow
 			for (var n=0; n<nmax; n++) {
-				if (document.styleSheets[m].cssRules[n].selectorText.indexOf(className)>-1) {
-					var copied = true;
-					var newStyleText = document.styleSheets[m].cssRules[n].cssText;
-					while (newStyleText.indexOf(className)>-1) {
-						newStyleText = newStyleText.replace(className, newClassName);
+				if (typeof document.styleSheets[m].cssRules[n].selectorText != "undefined") {
+					// skips rules without a selector
+					if (document.styleSheets[m].cssRules[n].selectorText.indexOf(className)>-1) {
+						var copied = true;
+						var newStyleText = document.styleSheets[m].cssRules[n].cssText;
+						while (newStyleText.indexOf(className)>-1) {
+							newStyleText = newStyleText.replace(className, newClassName);
+						}
+						document.styleSheets[m].insertRule(newStyleText,document.styleSheets[m].cssRules.length);
 					}
-					document.styleSheets[m].insertRule(newStyleText,document.styleSheets[m].cssRules.length);
 				}
 			}
 			if (copied) { break; }
